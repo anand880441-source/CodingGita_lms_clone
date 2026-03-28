@@ -4,6 +4,9 @@ import Login from "./pages/Login.jsx";
 import { Routes, Route } from 'react-router-dom'
 import StudentDashboard from './pages/StudentDashboard.jsx';
 import AttendanceDashboard from './pages/AttendanceDashboard.jsx';
+import CalendarDashboard from './pages/CalendarDashboard.jsx';
+import ChatDashboard from './pages/ChatDashboard.jsx';
+
 function App() {
 
   return (
@@ -13,6 +16,8 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/student' element={<StudentDashboard />} />
         <Route path='/student/attendance' element={<AttendanceDashboard />} />
+        <Route path='/student/calendar' element={<CalendarDashboard />} />
+        <Route path='/student/chat-groups' element={<ChatDashboard />} />
       </Routes>
     </div>
   )

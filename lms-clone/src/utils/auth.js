@@ -18,6 +18,8 @@ export const students = [
       startDate: "29/01/2026",
       endDate: "30/06/2026",
       today: [
+        { id: "SU0204", subject: "OOPS", instructor: "Ankita", status: "present" },
+        { id: "SU0203", subject: "NoSQL", instructor: "Ankita", status: "present" },
         { id: "SU0201", subject: "ReactJS", instructor: "Ankita", status: "present" },
         { id: "SU0202", subject: "NodeJS", instructor: "Ankita", status: "present" }
       ]
