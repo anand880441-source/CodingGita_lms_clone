@@ -6,7 +6,10 @@ const AttendanceDashboard = () => {
 
   const data = localStorage.getItem("user");
   const user = data ? JSON.parse(data) : {};
-  const attendanceData = user?.attendance?.today || [];
+  const attendance = Array.isArray(user?.attendance) ? user.attendance : [];
+  const currentAttendance = attendance.length > 0 ? attendance[attendance.length - 1] : {};
+  const attendanceData = currentAttendance?.today || [];
+
 
   return (
     <>

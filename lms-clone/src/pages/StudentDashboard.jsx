@@ -11,6 +11,10 @@ const StudentDashboard = () => {
     const email = user?.email || "N/A";
     const mobile = user?.mobile || "N/A";
     const uid = user?.uid || "N/A";
+
+    const attendance = Array.isArray(user?.attendance) ? user.attendance : [];
+    const currentAttendance = attendance.length > 0 ? attendance[attendance.length - 1] : {};
+
   return (
     <>
       <Navbar />
@@ -42,16 +46,16 @@ const StudentDashboard = () => {
           <div className="p-4 border-b border-neutral-800 ">
             <div className="flex items-center justify-between">
               <div className="text-white font-semibold">
-                {user?.attendance?.semester || "N/A"} Attendance
+                {currentAttendance?.semester || "N/A"} Attendance
                 <span className="ml-5"></span>
                 <span className="ml-5">
                   <span className="inline-flex items-center rounded-md border px-2 py-0.5 text-xs bg-purple-600/20 border-purple-600/50 text-purple-400">
-                    Bonus {user?.attendance?.bonus || 0}%
+                    Bonus {currentAttendance?.bonus || 0}%
                   </span>
                 </span>
               </div>
               <div className="text-sm text-neutral-400">
-                {user?.attendance?.total ? (user.attendance.present / user.attendance.total * 100).toFixed(0) : 0}%
+                {currentAttendance?.total ? (currentAttendance.present / currentAttendance.total * 100).toFixed(0) : 0}%
               </div>
             </div>
           </div>
@@ -64,12 +68,12 @@ const StudentDashboard = () => {
                   aria-valuemax="100" 
                   aria-valuenow="97" 
                   role="progressbar" 
-                  style={{ width: `${user?.attendance?.total ? (user.attendance.present / user.attendance.total * 100).toFixed(1) : 0}%` }}
+                  style={{ width: `${currentAttendance?.total ? (currentAttendance.present / currentAttendance.total * 100).toFixed(1) : 0}%` }}
                 ></div>
               </div>
               <div className="flex justify-between text-xs text-neutral-400">
-                <span>Present {user?.attendance?.present || 0} / {user?.attendance?.total || 0} marked sessions</span>
-                <span>{user?.attendance?.startDate || "N/A"} - {user?.attendance?.endDate || "N/A"}</span>
+                <span>Present {currentAttendance?.present || 0} / {currentAttendance?.total || 0} marked sessions</span>
+                <span>{currentAttendance?.startDate || "N/A"} - {currentAttendance?.endDate || "N/A"}</span>
               </div>
             </div>
           </div>

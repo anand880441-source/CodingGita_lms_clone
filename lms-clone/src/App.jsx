@@ -6,6 +6,7 @@ import StudentDashboard from './pages/StudentDashboard.jsx';
 import AttendanceDashboard from './pages/AttendanceDashboard.jsx';
 import CalendarDashboard from './pages/CalendarDashboard.jsx';
 import ChatDashboard from './pages/ChatDashboard.jsx';
+import SemesterAttendance from './pages/SemesterAttendance.jsx';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
         <Route path='/student/attendance' element={<AttendanceDashboard />} />
         <Route path='/student/calendar' element={<CalendarDashboard />} />
         <Route path='/student/chat-groups' element={<ChatDashboard />} />
+        <Route path='/student/semester-attendance' element={<SemesterAttendance />} />
       </Routes>
     </div>
   )
