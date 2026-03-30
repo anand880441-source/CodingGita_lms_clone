@@ -24,7 +24,7 @@ const Profile = () => {
     return (
         <>
             <Navbar />
-            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-8 space-y-6">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-7 pb-8 space-y-6">
                 <div className="flex items-center justify-between gap-2">
                     <div>
                         <h1 className="text-2xl font-semibold text-zinc-100">Profile</h1>
