@@ -2,18 +2,18 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 
 const StudentDashboard = () => {
-   const [open, setOpen] = React.useState(false);
-  
-    const data = localStorage.getItem("user");
-    const user = data ? JSON.parse(data) : {};
-    const name = user?.name || "Student";
-    const university = user?.university || "N/A";
-    const email = user?.email || "N/A";
-    const mobile = user?.mobile || "N/A";
-    const uid = user?.uid || "N/A";
+  const [open, setOpen] = React.useState(false);
 
-    const attendance = Array.isArray(user?.attendance) ? user.attendance : [];
-    const currentAttendance = attendance.length > 0 ? attendance[attendance.length - 1] : {};
+  const data = localStorage.getItem("user");
+  const user = data ? JSON.parse(data) : {};
+  const name = user?.name || "Student";
+  const university = user?.university || "N/A";
+  const email = user?.email || "N/A";
+  const mobile = user?.mobile || "N/A";
+  const uid = user?.uid || "N/A";
+
+  const attendance = Array.isArray(user?.attendance) ? user.attendance : [];
+  const currentAttendance = attendance.length > 0 ? attendance[attendance.length - 1] : {};
 
   return (
     <>
@@ -62,12 +62,12 @@ const StudentDashboard = () => {
           <div className="p-4 ">
             <div className="space-y-3">
               <div className="w-full h-3 bg-neutral-800 rounded-full overflow-hidden">
-                <div 
-                  className="h-3 bg-green-500" 
-                  aria-valuemin="0" 
-                  aria-valuemax="100" 
-                  aria-valuenow="97" 
-                  role="progressbar" 
+                <div
+                  className="h-3 bg-green-500"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  aria-valuenow="97"
+                  role="progressbar"
                   style={{ width: `${currentAttendance?.total ? (currentAttendance.present / currentAttendance.total * 100).toFixed(1) : 0}%` }}
                 ></div>
               </div>
@@ -85,9 +85,9 @@ const StudentDashboard = () => {
           <div className="rounded-xl border border-neutral-800 bg-neutral-900 lg:col-span-1">
             <div className="p-4 border-b border-neutral-800 ">
               <div className="flex items-center gap-3">
-                <img 
-                  alt={user.name} 
-                  className="w-14 h-14 rounded-full object-cover" 
+                <img
+                  alt={user.name}
+                  className="w-14 h-14 rounded-full object-cover"
                   src={user.avatar || user.image || "https://avatars.githubusercontent.com/u/224962377?v=4&size=64"}
                 />
                 <div>

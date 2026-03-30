@@ -123,3 +123,16 @@ export const loginDetails = (uid, password) => {
 
   return true;
 };
+
+export const getCurrentUser = () => {
+  const data = localStorage.getItem("user");
+  return data ? JSON.parse(data) : null;
+};
+
+export const logout = () => {
+  localStorage.removeItem("user");
+};
+
+export const isAuthenticated = () => {
+  return !!localStorage.getItem("user");
+};

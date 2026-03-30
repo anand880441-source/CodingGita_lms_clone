@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { loginDetails } from "../utils/auth"
+import { loginDetails, isAuthenticated } from "../utils/auth"
+import { useEffect } from "react"
 
 function Login() {
     const roleArr = ["Student", "Mentor", "Admin"];
@@ -9,6 +10,12 @@ function Login() {
     const [password, setPassword] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (isAuthenticated()) {
+            navigate("/student");
+        }
+    }, [navigate]);
 
     const handleLogin = (e) => {
         e.preventDefault();

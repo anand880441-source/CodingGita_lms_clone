@@ -156,8 +156,8 @@ export default function CalendarPage() {
                                             >
                                                 <div
                                                     className={`text-sm ${active
-                                                            ? "text-blue-400 font-semibold"
-                                                            : "text-neutral-200"
+                                                        ? "text-blue-400 font-semibold"
+                                                        : "text-neutral-200"
                                                         }`}
                                                 >
                                                     {d}

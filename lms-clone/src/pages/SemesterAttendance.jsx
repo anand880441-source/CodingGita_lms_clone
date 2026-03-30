@@ -5,11 +5,10 @@ const SemesterAttendance = () => {
   const data = localStorage.getItem("user");
   const user = data ? JSON.parse(data) : {};
   const name = user?.name || "Student";
-  
+
   // FIXED: Ensure attendance is always an array
   const attendance = Array.isArray(user?.attendance) ? user.attendance : [];
-  
-  // FIXED: Map the attendance data correctly with all required fields
+
   const semesterData = attendance.map((sem) => ({
     id: sem.semester,
     title: sem.semester,
@@ -62,11 +61,10 @@ const SemesterAttendance = () => {
                   <button
                     key={sem.id}
                     onClick={() => setActiveSem(sem)}
-                    className={`w-full text-left px-3 py-2 rounded-lg border transition-all ${
-                      activeSem.id === sem.id
+                    className={`w-full text-left px-3 py-2 rounded-lg border transition-all ${activeSem.id === sem.id
                         ? 'border-blue-600 bg-blue-950 text-blue-200'
                         : 'border-neutral-800 bg-neutral-950 text-neutral-300 hover:bg-neutral-800'
-                    }`}
+                      }`}
                   >
                     <div className="font-medium">{sem.title}</div>
                     <div className="text-xs text-neutral-400 mt-1">{sem.dateRange}</div>
