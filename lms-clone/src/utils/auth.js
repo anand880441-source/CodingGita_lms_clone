@@ -6,6 +6,12 @@ export const students = [
     email: "anand880441@gmail.com",
     mobile: "8765432109",
     university: "SUxCG 714",
+    uni_email: "anand.suthar@university.edu",
+    portfolio: "https://anandsuthar-portfolio.netlify.app/",
+    github: "https://github.com/anand880441-source",
+    linkedIn: "https://www.linkedin.com/in/anand-suthar-653119396/",
+    twitter: "https://x.com/ACodinggit60327",
+    youtube: "https://www.youtube.com/@spino_cg",
 
     avatar:
       "https://res.cloudinary.com/dpvmzqfvv/image/upload/v1770271264/AnandIMG_-_Copy_mou9hb.jpg",

@@ -59,11 +59,11 @@ const Profile = () => {
                         </div>
                         <div className="flex flex-col gap-1 p-3 rounded-md bg-zinc-900/40 border border-zinc-800">
                             <span className="text-xs uppercase tracking-wide text-zinc-400">Course</span>
-                            <span className="block text-sm text-zinc-500">Computer Applications</span>
+                            <span className="block text-sm text-zinc-500">—</span>
                         </div>
                         <div className="flex flex-col gap-1 p-3 rounded-md bg-zinc-900/40 border border-zinc-800">
                             <span className="text-xs uppercase tracking-wide text-zinc-400">Branch</span>
-                            <span className="block text-sm text-zinc-500">CSE/IT Specialization</span>
+                            <span className="block text-sm text-zinc-500">—</span>
                         </div>
                         <div className="flex flex-col gap-1 p-3 rounded-md bg-zinc-900/40 border border-zinc-800">
                             <span className="text-xs uppercase tracking-wide text-zinc-400">Semester</span>
@@ -75,7 +75,7 @@ const Profile = () => {
                         </div>
                         <div className="flex flex-col gap-1 p-3 rounded-md bg-zinc-900/40 border border-zinc-800">
                             <span className="text-xs uppercase tracking-wide text-zinc-400">Alternate Email</span>
-                            <a href={`mailto:anand.suthar.cg@gmail.com`} target="_blank" rel="noopener noreferrer" className="block text-sm text-blue-400 hover:underline truncate" title="anand.suthar.cg@gmail.com">anand.suthar.cg@gmail.com</a>
+                            <a href={`mailto:anand.suthar.cg@gmail.com`} target="_blank" rel="noopener noreferrer" className="block text-sm text-blue-400 hover:underline truncate" title="anand.suthar.cg@gmail.com">{user.email}</a>
                         </div>
                         <div className="flex flex-col gap-1 p-3 rounded-md bg-zinc-900/40 border border-zinc-800">
                             <span className="text-xs uppercase tracking-wide text-zinc-400">Alternate Phone</span>
@@ -100,7 +100,7 @@ const Profile = () => {
                         </div>
                         <div className="flex flex-col gap-1 p-3 rounded-md bg-zinc-900/40 border border-zinc-800">
                             <span className="text-xs uppercase tracking-wide text-zinc-400">University Email</span>
-                            <a href={`mailto:${user.email}`} target="_blank" rel="noopener noreferrer" className="block text-sm text-blue-400 hover:underline truncate" title={user.email}>{user.email}</a>
+                            <a href={`mailto:${user.email}`} target="_blank" rel="noopener noreferrer" className="block text-sm text-blue-400 hover:underline truncate" title={user.uni_email}>{user.uni_email}</a>
                         </div>
                         <div className="flex flex-col gap-1 p-3 rounded-md bg-zinc-900/40 border border-zinc-800">
                             <span className="text-xs uppercase tracking-wide text-zinc-400">Current Email</span>
@@ -112,7 +112,9 @@ const Profile = () => {
                         </div>
                         <div className="flex flex-col gap-1 p-3 rounded-md bg-zinc-900/40 border border-zinc-800">
                             <span className="text-xs uppercase tracking-wide text-zinc-400">Portfolio</span>
-                            <a href="https://anandsuthar-portfolio.netlify.app" target="_blank" rel="noopener noreferrer" className="block text-sm text-blue-400 hover:underline truncate" title="https://anandsuthar-portfolio.netlify.app">https://anandsuthar-portfolio.netlify.app</a>
+                            <a href={user.portfolio} target="_blank" rel="noopener noreferrer" className="block text-sm text-blue-400 hover:underline truncate" title={user.portfolio}>
+                                {user.portfolio}
+                            </a>
                         </div>
                         <div className="flex flex-col gap-1 p-3 rounded-md bg-zinc-900/40 border border-zinc-800">
                             <span className="text-xs uppercase tracking-wide text-zinc-400">Resume</span>
@@ -120,19 +122,27 @@ const Profile = () => {
                         </div>
                         <div className="flex flex-col gap-1 p-3 rounded-md bg-zinc-900/40 border border-zinc-800">
                             <span className="text-xs uppercase tracking-wide text-zinc-400">Github</span>
-                            <a href="https://github.com/anand880441-source" target="_blank" rel="noopener noreferrer" className="block text-sm text-blue-400 hover:underline truncate" title="https://github.com/anand880441-source">https://github.com/anand880441-source</a>
+                            <a href={user.github} target="_blank" rel="noopener noreferrer" className="block text-sm text-blue-400 hover:underline truncate" title={user.github}>
+                                {user.github}
+                            </a>
                         </div>
                         <div className="flex flex-col gap-1 p-3 rounded-md bg-zinc-900/40 border border-zinc-800">
                             <span className="text-xs uppercase tracking-wide text-zinc-400">LinkedIn</span>
-                            <a href="https://www.linkedin.com/in/anand-suthar-653119396/" target="_blank" rel="noopener noreferrer" className="block text-sm text-blue-400 hover:underline truncate" title="https://www.linkedin.com/in/anand-suthar-653119396/">https://www.linkedin.com/in/anand-suthar-653119396/</a>
+                            <a href={user.linkedIn} target="_blank" rel="noopener noreferrer" className="block text-sm text-blue-400 hover:underline truncate" title={user.linkedIn}>
+                                {user.linkedIn}
+                            </a>
                         </div>
                         <div className="flex flex-col gap-1 p-3 rounded-md bg-zinc-900/40 border border-zinc-800">
                             <span className="text-xs uppercase tracking-wide text-zinc-400">Twitter</span>
-                            <a href="https://x.com/ACodinggit60327" target="_blank" rel="noopener noreferrer" className="block text-sm text-blue-400 hover:underline truncate" title="https://x.com/ACodinggit60327">https://x.com/ACodinggit60327</a>
+                            <a href={user.twitter} target="_blank" rel="noopener noreferrer" className="block text-sm text-blue-400 hover:underline truncate" title={user.twitter}>
+                                {user.twitter}
+                            </a>
                         </div>
                         <div className="flex flex-col gap-1 p-3 rounded-md bg-zinc-900/40 border border-zinc-800">
                             <span className="text-xs uppercase tracking-wide text-zinc-400">YouTube</span>
-                            <a href="https://www.youtube.com/@spino_cg" target="_blank" rel="noopener noreferrer" className="block text-sm text-blue-400 hover:underline truncate" title="https://www.youtube.com/@spino_cg">https://www.youtube.com/@spino_cg</a>
+                            <a href={user.youtube} target="_blank" rel="noopener noreferrer" className="block text-sm text-blue-400 hover:underline truncate" title={user.youtube}>
+                                {user.youtube}
+                            </a>
                         </div>
                     </div>
                 </div>
