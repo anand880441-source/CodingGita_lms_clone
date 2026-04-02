@@ -50,7 +50,7 @@ const StudentDashboard = () => {
                 <span className="ml-5"></span>
                 <span className="ml-5">
                   <span className="inline-flex items-center rounded-md border px-2 py-0.5 text-xs bg-purple-600/20 border-purple-600/50 text-purple-400">
-                    Bonus {currentAttendance?.bonus || 0}%
+                    Bonus {user.attendance?.bonus || 0}%
                   </span>
                 </span>
               </div>
@@ -148,6 +148,43 @@ const StudentDashboard = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+
+        <div className="rounded-xl border border-neutral-800 bg-neutral-900 mb-6">
+          <div className="p-4 border-b border-neutral-800 ">
+            <div className="flex items-center justify-between">
+              <div className="text-white font-semibold">
+                Assignments
+                <span className="text-neutral-400 text-sm">(0/0 - 0%)</span>
+              </div>
+              <div className="flex items-center gap-3 text-sm text-neutral-400">
+                <span>Pending: 0</span>
+                <a className="text-xs underline hover:text-white" href="/student/assignments" data-discover="true">View all</a>
+              </div>
+            </div>
+          </div>
+
+          <div className="p-4 ">
+            <div className="text-neutral-400 text-sm">
+              No pending assignments. Great job!
+            </div>
+          </div>
+        </div>
+        <div className="rounded-xl border border-neutral-800 bg-neutral-900 mb-6">
+          <div className="p-4 border-b border-neutral-800 ">
+            <div className="flex items-center justify-between">
+              <div className="text-white font-semibold">
+                Upcoming Events
+              </div>
+              <div className="flex items-center gap-3 text-sm text-neutral-400">
+                <span>0 shown</span>
+                <a className="text-xs underline hover:text-white" href="/student/events" data-discover="true">View all</a>
+              </div>
+            </div>
+          </div>
+          <div className="p-4 ">
+            <div className="text-neutral-400 text-sm">No upcoming events.</div>
           </div>
         </div>
 

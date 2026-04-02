@@ -12,6 +12,8 @@ import Feedback from './pages/Feedback.jsx';
 import WeeklySubjectFeedback from './pages/WeeklySubjectFeedback.jsx';
 import Profile from './pages/Profile.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
+import { Events } from './pages/Events.jsx';
+import Assignments from './pages/Assignments.jsx';
 
 function App() {
 
@@ -31,6 +33,8 @@ function App() {
         <Route path='/student/feedback' element={<ProtectedRoute><Feedback /></ProtectedRoute>} />
         <Route path='/student/weekly-subject-feedback' element={<ProtectedRoute><WeeklySubjectFeedback /></ProtectedRoute>} />
         <Route path='/student/profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+        <Route path='/student/events' element={<ProtectedRoute><Events /></ProtectedRoute>} />
+        <Route path='/student/assignments' element={<ProtectedRoute><Assignments /></ProtectedRoute>} />
       </Routes>
     </div>
   )

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 
 const ApplyLeave = () => {
@@ -11,6 +11,17 @@ const ApplyLeave = () => {
         remark: ''
     });
 
+    const [leaveRequests, setLeaveRequests] = useState([]);
+
+    useEffect(() => {
+        // Load leave requests from localStorage
+        const userData = localStorage.getItem("user");
+        if (userData) {
+            const user = JSON.parse(userData);
+            setLeaveRequests(user.leaveRequests || []);
+        }
+    }, []);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
@@ -18,10 +29,47 @@ const ApplyLeave = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Application Submitted:", formData);
+        
+        // Create new leave request
+        const newRequest = {
+            id: Date.now().toString(),
+            ...formData,
+            status: 'Pending Review',
+            submittedDate: new Date().toISOString().split('T')[0],
+        };
+
+        // Update leave requests
+        const updatedRequests = [...leaveRequests, newRequest];
+        setLeaveRequests(updatedRequests);
+
+        // Update user data in localStorage
+        const userData = localStorage.getItem("user");
+        if (userData) {
+            const user = JSON.parse(userData);
+            user.leaveRequests = updatedRequests;
+            localStorage.setItem("user", JSON.stringify(user));
+        }
+
+        // Reset form
+        setFormData({
+            category: '',
+            startingDate: '',
+            endingDate: '',
+            leaveTime: '',
+            returnTime: '',
+            remark: ''
+        });
+
+        alert('Leave application submitted successfully!');
     };
 
     const isFormValid = formData.category && formData.startingDate && formData.endingDate;
+
+    // Calculate stats
+    const totalApplications = leaveRequests.length;
+    const pendingReview = leaveRequests.filter(req => req.status === 'Pending Review').length;
+    const approved = leaveRequests.filter(req => req.status === 'Approved').length;
+    const rejected = leaveRequests.filter(req => req.status === 'Rejected').length;
 
     return (
         <>
@@ -36,10 +84,10 @@ const ApplyLeave = () => {
                 {/* Stats Cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                     {[
-                        { label: 'Total Applications', count: 0, color: 'text-neutral-100' },
-                        { label: 'Pending Review', count: 0, color: 'text-amber-300' },
-                        { label: 'Approved', count: 0, color: 'text-emerald-300' },
-                        { label: 'Rejected', count: 0, color: 'text-red-300' },
+                        { label: 'Total Applications', count: totalApplications, color: 'text-neutral-100' },
+                        { label: 'Pending Review', count: pendingReview, color: 'text-amber-300' },
+                        { label: 'Approved', count: approved, color: 'text-emerald-300' },
+                        { label: 'Rejected', count: rejected, color: 'text-red-300' },
                     ].map((stat, i) => (
                         <div key={i} className="bg-neutral-900 border border-neutral-800 rounded-lg p-4">
                             <div className={`text-2xl font-bold ${stat.color}`}>{stat.count}</div>
@@ -116,9 +164,39 @@ const ApplyLeave = () => {
                     {/* History Section */}
                     <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-6">
                         <h2 className="text-xl font-semibold mb-6 text-white">My Leave Requests</h2>
-                        <div className="text-center py-12 text-neutral-500">
-                            No leave requests yet
-                        </div>
+                        {leaveRequests.length === 0 ? (
+                            <div className="text-center py-12 text-neutral-500">
+                                No leave requests yet
+                            </div>
+                        ) : (
+                            <div className="space-y-4">
+                                {leaveRequests.map((request) => (
+                                    <div key={request.id} className="bg-neutral-800 border border-neutral-700 rounded-lg p-4">
+                                        <div className="flex items-start justify-between mb-3">
+                                            <div>
+                                                <h3 className="text-white font-medium">{request.category}</h3>
+                                                <p className="text-sm text-neutral-400">
+                                                    {request.startingDate} to {request.endingDate}
+                                                </p>
+                                            </div>
+                                            <span className={`px-2 py-1 text-xs rounded-full ${
+                                                request.status === 'Approved' ? 'bg-green-900/50 text-green-300 border border-green-700' :
+                                                request.status === 'Rejected' ? 'bg-red-900/50 text-red-300 border border-red-700' :
+                                                'bg-yellow-900/50 text-yellow-300 border border-yellow-700'
+                                            }`}>
+                                                {request.status}
+                                            </span>
+                                        </div>
+                                        {request.remark && (
+                                            <p className="text-sm text-neutral-300 mb-2">{request.remark}</p>
+                                        )}
+                                        <div className="text-xs text-neutral-500">
+                                            Submitted on {request.submittedDate}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

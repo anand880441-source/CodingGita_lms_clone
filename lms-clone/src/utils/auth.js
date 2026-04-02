@@ -116,6 +116,7 @@ export const students = [
     assignments: 0,
     pendingAssignments: 0,
     events: [],
+    leaveRequests: [],
   },
 ];
 export const loginDetails = (uid, password) => {

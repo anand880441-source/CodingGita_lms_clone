@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
     const navigate = useNavigate();
     const data = localStorage.getItem("user");
-    const user = data ? JSON.parse(data) : null;
+    const [user, setUser] = useState(data ? JSON.parse(data) : null);
+    const [editedUser, setEditedUser] = useState(user);
+    const [showModal, setShowModal] = useState(false);
 
     if (!user) {
         return (
@@ -32,7 +34,10 @@ const Profile = () => {
                     </div>
                     <div className="flex items-center gap-2">
                         <button className="px-3 py-1.5 text-sm rounded-md bg-blue-600 hover:bg-blue-500 text-white">Reset Password</button>
-                        <button className="px-3 py-1.5 text-sm rounded-md bg-zinc-800 hover:bg-zinc-700 text-white">Edit</button>
+                        <button onClick={() => {
+                            setEditedUser({...user});
+                            setShowModal(true);
+                        }} className="px-3 py-1.5 text-sm rounded-md bg-zinc-800 hover:bg-zinc-700 text-white">Edit</button>
                     </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -96,7 +101,7 @@ const Profile = () => {
                         </div>
                         <div className="flex flex-col gap-1 p-3 rounded-md bg-zinc-900/40 border border-zinc-800">
                             <span className="text-xs uppercase tracking-wide text-zinc-400">Parent Mobile</span>
-                            <span className="block text-sm text-zinc-500">—</span>
+                            <span className="block text-sm text-zinc-500">{user.parentMobile || "—"}</span>
                         </div>
                         <div className="flex flex-col gap-1 p-3 rounded-md bg-zinc-900/40 border border-zinc-800">
                             <span className="text-xs uppercase tracking-wide text-zinc-400">University Email</span>
@@ -108,7 +113,7 @@ const Profile = () => {
                         </div>
                         <div className="flex flex-col gap-1 p-3 rounded-md bg-zinc-900/40 border border-zinc-800">
                             <span className="text-xs uppercase tracking-wide text-zinc-400">Address</span>
-                            <span className="block text-sm text-zinc-500">—</span>
+                            <span className="block text-sm text-zinc-500">{user.address || "—"}</span>
                         </div>
                         <div className="flex flex-col gap-1 p-3 rounded-md bg-zinc-900/40 border border-zinc-800">
                             <span className="text-xs uppercase tracking-wide text-zinc-400">Portfolio</span>
@@ -118,7 +123,13 @@ const Profile = () => {
                         </div>
                         <div className="flex flex-col gap-1 p-3 rounded-md bg-zinc-900/40 border border-zinc-800">
                             <span className="text-xs uppercase tracking-wide text-zinc-400">Resume</span>
-                            <span className="block text-sm text-zinc-500">—</span>
+                            {user.resume ? (
+                                <a href={user.resume} target="_blank" rel="noopener noreferrer" className="block text-sm text-blue-400 hover:underline truncate" title={user.resume}>
+                                    {user.resume}
+                                </a>
+                            ) : (
+                                <span className="block text-sm text-zinc-500">—</span>
+                            )}
                         </div>
                         <div className="flex flex-col gap-1 p-3 rounded-md bg-zinc-900/40 border border-zinc-800">
                             <span className="text-xs uppercase tracking-wide text-zinc-400">Github</span>
@@ -184,6 +195,132 @@ const Profile = () => {
                     </div>
                 </div>
             </div>
+            {showModal && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="relative z-10 w-full max-w-2xl bg-zinc-950 border border-zinc-800 rounded-xl shadow-xl">
+                        <div className="flex items-center justify-between px-4 py-3 border-b border-zinc-800">
+                            <h3 className="text-zinc-100 font-medium">Edit Profile</h3>
+                            <button onClick={() => setShowModal(false)} className="text-zinc-400 hover:text-zinc-200">✕</button>
+                        </div>
+                        <div className="max-h-[70vh] overflow-y-auto hide-scrollbar p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-xs text-zinc-400 mb-1">Avatar URL</label>
+                                <input
+                                    className="w-full bg-zinc-900 border border-zinc-800 rounded-md px-3 py-2 text-sm text-zinc-100"
+                                    placeholder="https://..."
+                                    value={editedUser.avatar || ""}
+                                    onChange={(e) => setEditedUser({...editedUser, avatar: e.target.value})}
+                                    name="imageUrl"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-xs text-zinc-400 mb-1">Address</label>
+                                <input
+                                    className="w-full bg-zinc-900 border border-zinc-800 rounded-md px-3 py-2 text-sm text-zinc-100"
+                                    placeholder="Your address"
+                                    value={editedUser.address || ""}
+                                    onChange={(e) => setEditedUser({...editedUser, address: e.target.value})}
+                                    name="address"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-xs text-zinc-400 mb-1">Current Email</label>
+                                <input
+                                    className="w-full bg-zinc-900 border border-zinc-800 rounded-md px-3 py-2 text-sm text-zinc-100"
+                                    placeholder="you@example.com"
+                                    value={editedUser.email || ""}
+                                    onChange={(e) => setEditedUser({...editedUser, email: e.target.value})}
+                                    name="currentEmail"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-xs text-zinc-400 mb-1">Parent Mobile (Optional)</label>
+                                <input
+                                    className="w-full bg-zinc-900 border border-zinc-800 rounded-md px-3 py-2 text-sm text-zinc-100"
+                                    placeholder="10-digit parent mobile"
+                                    inputMode="numeric"
+                                    value={editedUser.parentMobile || ""}
+                                    onChange={(e) => setEditedUser({...editedUser, parentMobile: e.target.value})}
+                                    name="parentMobile"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-xs text-zinc-400 mb-1">Portfolio Link</label>
+                                <input
+                                    className="w-full bg-zinc-900 border border-zinc-800 rounded-md px-3 py-2 text-sm text-zinc-100"
+                                    placeholder="https://..."
+                                    value={editedUser.portfolio || ""}
+                                    onChange={(e) => setEditedUser({...editedUser, portfolio: e.target.value})}
+                                    name="portfolioLink"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-xs text-zinc-400 mb-1">Resume Link</label>
+                                <input
+                                    className="w-full bg-zinc-900 border border-zinc-800 rounded-md px-3 py-2 text-sm text-zinc-100"
+                                    placeholder="https://..."
+                                    value={editedUser.resume || ""}
+                                    onChange={(e) => setEditedUser({...editedUser, resume: e.target.value})}
+                                    name="resumeLink"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-xs text-zinc-400 mb-1">Github Link</label>
+                                <input
+                                    className="w-full bg-zinc-900 border border-zinc-800 rounded-md px-3 py-2 text-sm text-zinc-100"
+                                    placeholder="https://github.com/..."
+                                    value={editedUser.github || ""}
+                                    onChange={(e) => setEditedUser({...editedUser, github: e.target.value})}
+                                    name="githubLink"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-xs text-zinc-400 mb-1">LinkedIn Link</label>
+                                <input
+                                    className="w-full bg-zinc-900 border border-zinc-800 rounded-md px-3 py-2 text-sm text-zinc-100"
+                                    placeholder="https://linkedin.com/in/..."
+                                    value={editedUser.linkedIn || ""}
+                                    onChange={(e) => setEditedUser({...editedUser, linkedIn: e.target.value})}
+                                    name="linkedinLink"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-xs text-zinc-400 mb-1">Twitter Link</label>
+                                <input
+                                    className="w-full bg-zinc-900 border border-zinc-800 rounded-md px-3 py-2 text-sm text-zinc-100"
+                                    placeholder="https://x.com/..."
+                                    value={editedUser.twitter || ""}
+                                    onChange={(e) => setEditedUser({...editedUser, twitter: e.target.value})}
+                                    name="twitterLink"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-xs text-zinc-400 mb-1">YouTube Link</label>
+                                <input
+                                    className="w-full bg-zinc-900 border border-zinc-800 rounded-md px-3 py-2 text-sm text-zinc-100"
+                                    placeholder="https://youtube.com/..."
+                                    value={editedUser.youtube || ""}
+                                    onChange={(e) => setEditedUser({...editedUser, youtube: e.target.value})}
+                                    name="youtubeLink"
+                                />
+                            </div>
+                        </div>
+                        <div className="flex items-center justify-end gap-2 px-4 py-3 border-t border-zinc-800">
+                            <button onClick={() => setShowModal(false)} className="px-3 py-1.5 text-sm rounded-md bg-zinc-800 hover:bg-zinc-700 text-white">Cancel</button>
+                            <button
+                                onClick={() => {
+                                    localStorage.setItem("user", JSON.stringify(editedUser));
+                                    setUser(editedUser);
+                                    setShowModal(false);
+                                }}
+                                className="px-3 py-1.5 text-sm rounded-md bg-blue-600 hover:bg-blue-500 text-white"
+                            >
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </>
     );
 };
